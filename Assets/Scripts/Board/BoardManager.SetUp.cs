@@ -13,7 +13,8 @@ public partial class BoardManager : MonoBehaviour
     [SerializeField] private Tilemap overlayTileMap;
     [SerializeField] private Tilemap highlightTileMap;
     [SerializeField] private Tilemap clickTileMap;
-    
+    [SerializeField] private Tilemap obstructionTileMap;
+
     [Header("Special Tiles")]
     [SerializeField] private TileBase highlightTile;
     [SerializeField] private TileBase clickTile;
@@ -127,6 +128,23 @@ public partial class BoardManager : MonoBehaviour
     {
         clickTileMap.ClearAllTiles();
         clickTilePosDictionary = new Dictionary<GameObject, Vector3Int>();
+        
+        for (int x = 0; x < board.Count; x++)
+        {
+            for (int y = 0; y < board[x].Count; y++)
+            {
+                Vector3Int topTilePos = board[x][y].topTilePos;
+                ++topTilePos.z;
+                clickTileMap.SetTile(topTilePos, clickTile);
+                clickTilePosDictionary.Add(clickTileMap.GetInstantiatedObject(topTilePos), topTilePos);
+            }
+        }
+    }
+    
+    // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO NOT DONE
+    private void UpdateObstructionTileMap()
+    {
+        obstructionTileMap.ClearAllTiles();
         
         for (int x = 0; x < board.Count; x++)
         {

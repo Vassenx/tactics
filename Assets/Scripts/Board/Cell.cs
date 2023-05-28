@@ -9,6 +9,8 @@ public class Cell
     public TileBase topTile { get; private set; }
     public Vector3Int topTilePos { get; private set; }
 
+    public Character characterOnTile;
+
     public Cell(List<TileBase> tiles, TileBase top, Vector3Int topPos)
     {
         verticalTiles = tiles;
