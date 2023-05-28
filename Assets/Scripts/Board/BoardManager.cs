@@ -32,6 +32,7 @@ public partial class BoardManager : MonoBehaviour
         // MoveBoardToOrigin();
         InitializeOverlayDictionary();
         UpdateOverlayTileMap();
+        UpdateClickTileMap();
     }
     
     // TODO clear old highlighting tiles
@@ -40,6 +41,7 @@ public partial class BoardManager : MonoBehaviour
         foreach (var cell in cellsToHighlight)
         {
             var topPos = cell.topTilePos;
+            ++topPos.z;
             highlightTileMap.SetTile(topPos, highlightTile);
         }
     }

@@ -1,27 +1,34 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 // Initialization and editor functions
 public partial class BoardManager : MonoBehaviour
 {
     [Header("Tile Maps")]
-    [SerializeField] private Tilemap baseTileMap;
+    [SerializeField] public Tilemap baseTileMap;
     [SerializeField] private Tilemap overlayTileMap;
     [SerializeField] private Tilemap highlightTileMap;
+    [SerializeField] private Tilemap clickTileMap;
     
     [Header("Special Tiles")]
     [SerializeField] private TileBase highlightTile;
-    
+    [SerializeField] private TileBase clickTile;
+
     [SerializeField] private List<TileBase> topSprites = new List<TileBase>();
     [SerializeField] private List<TileBase> overlaySprites = new List<TileBase>();
     private Dictionary<TileBase, TileBase> topToOverlaySprites;
 
+    public Dictionary<GameObject, Vector3Int> clickTilePosDictionary;
+    
     [ContextMenu("Move Board To Origin")]
     private void MoveBoardToOrigin()
     {
         // TODO: initialize board first? populate cells first + board = new ...
+        Initialize();
         
         baseTileMap.ClearAllTiles();
         highlightTileMap.ClearAllTiles();
@@ -41,6 +48,10 @@ public partial class BoardManager : MonoBehaviour
         
         overlayTileMap.ClearAllTiles();
         UpdateOverlayTileMap();
+        
+        baseTileMap.RefreshAllTiles();
+        overlayTileMap.RefreshAllTiles();
+        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }
 
     private void PopulateBoard()
@@ -109,6 +120,23 @@ public partial class BoardManager : MonoBehaviour
         for (int i = 0; i < topSprites.Count; i++)
         {
             topToOverlaySprites.Add(topSprites[i], overlaySprites[i]);
+        }
+    }
+    
+    private void UpdateClickTileMap()
+    {
+        clickTileMap.ClearAllTiles();
+        clickTilePosDictionary = new Dictionary<GameObject, Vector3Int>();
+        
+        for (int x = 0; x < board.Count; x++)
+        {
+            for (int y = 0; y < board[x].Count; y++)
+            {
+                Vector3Int topTilePos = board[x][y].topTilePos;
+                ++topTilePos.z;
+                clickTileMap.SetTile(topTilePos, clickTile);
+                clickTilePosDictionary.Add(clickTileMap.GetInstantiatedObject(topTilePos), topTilePos);
+            }
         }
     }
 

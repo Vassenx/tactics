@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,6 +8,8 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private GameObject player;
     [SerializeField] private Tilemap baseTileMap;
+
+    [SerializeField] private RuleTile clickTile;
 
     private void Start()
     {
@@ -24,14 +27,21 @@ public class InputHandler : MonoBehaviour
         
             player.transform.position = centerOfTilePos;
         }
-    }
-    
-    private void OnMouseDown()
-    {
-        var board = BoardManager.Instance.board;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var curPos = baseTileMap.WorldToCell(mouseWorldPos);
-        var cell = board[curPos.x][curPos.y];
-        BoardManager.Instance.UpdateHighlightTileMap(new List<Cell>() {cell});
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            if (hit.collider == null)
+                return;
+
+            if (hit.collider.CompareTag("Selector"))
+            {
+                if(BoardManager.Instance.clickTilePosDictionary.TryGetValue(hit.collider.gameObject, out Vector3Int pos))
+                {
+                    BoardManager.Instance.UpdateHighlightTileMap(new List<Cell>() { BoardManager.Instance.board[pos.x][pos.y] });
+                }
+            }
+        }
     }
 }
