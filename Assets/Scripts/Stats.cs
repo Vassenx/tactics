@@ -6,4 +6,5 @@ using UnityEngine;
 public class Stats : ScriptableObject
 {
     public int movement = 1;
+    public float movementSpeed = 4;
 }

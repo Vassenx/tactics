@@ -8,9 +8,9 @@ public class Ally : Character
     {
         curCell.characterOnTile = null;
 
-        Vector3 curWorldPos = BoardManager.Instance.baseTileMap.CellToWorld(curCell.topTilePos);
-        Vector3 nextWorldPos = BoardManager.Instance.baseTileMap.CellToWorld(nextCell.topTilePos);
-        StartCoroutine(LerpPosition(curWorldPos, nextWorldPos, 5));
+        Vector3 curWorldPos = BoardManager.Instance.GetCellCenterWorld(curCell);
+        Vector3 nextWorldPos = BoardManager.Instance.GetCellCenterWorld(nextCell);
+        StartCoroutine(LerpPosition(curWorldPos, nextWorldPos, stats.movementSpeed));
         
         nextCell.characterOnTile = this;
         curCell = nextCell;
