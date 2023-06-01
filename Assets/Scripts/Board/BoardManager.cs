@@ -60,70 +60,63 @@ public partial class BoardManager : MonoBehaviour
     public void ShowMovementTileOptions(Character character)
     {
         Cell cell = character.curCell;
-        Vector3Int cellPos = cell.topTilePos;
-        int movementAmount = character.stats.movement;
 
-        for (int i = 1; i <= movementAmount; i++)
-        {
-            if (board.Count > cellPos.x + i)
-            {
-                var northCell = board[cellPos.x + i][cellPos.y];
-                movementCells.Add(northCell);
-            }
-
-            if (board[cellPos.x].Count > cellPos.y + i)
-            {
-                var westCell = board[cellPos.x][cellPos.y + i];
-                movementCells.Add(westCell);
-            }
-
-            if (cellPos.x - i >= 0)
-            {
-                var southCell = board[cellPos.x - i][cellPos.y];
-                movementCells.Add(southCell);
-            }
-
-            if (cellPos.y - i >= 0)
-            {
-                var eastCell = board[cellPos.x][cellPos.y - i];
-                movementCells.Add(eastCell);
-            }
-
-            // diagonals = 2 movements
-            if (i > 1)
-            {
-                int diag = i - 1;
-                if (board.Count > cellPos.x + diag && board[cellPos.x].Count > cellPos.y + diag)
-                {
-                    var northwestCell = board[cellPos.x + diag][cellPos.y + diag];
-                    movementCells.Add(northwestCell);
-                }
-                
-                if (board.Count > cellPos.x + diag && cellPos.y - diag >= 0)
-                {
-                    var northeastCell = board[cellPos.x + diag][cellPos.y - diag];
-                    movementCells.Add(northeastCell);
-                }
-                
-                if (board[cellPos.x].Count > cellPos.y + diag && board[cellPos.x].Count > cellPos.y + diag)
-                {
-                    var southwestCell = board[cellPos.x - diag][cellPos.y + diag];
-                    movementCells.Add(southwestCell);
-                }
-                
-                if (board[cellPos.x].Count > cellPos.y + diag && cellPos.x - diag >= 0)
-                {
-                    var southeastCell = board[cellPos.x - diag][cellPos.y - diag];
-                    movementCells.Add(southeastCell);
-                }
-            }
-        }
+        HighlightAdjacentCells(cell, 0, character.stats.movement);
 
         foreach (Cell movementCell in movementCells)
         {
             var highlightMovementPos = movementCell.topTilePos;
             ++highlightMovementPos.z;
             highlightTileMap.SetTile(highlightMovementPos, highlightTile);
+        }
+    }
+
+    // its recursive and not optimal. :p
+    private void HighlightAdjacentCells(Cell baseCell, int stepIndex, int maxStepIndex)
+    {
+        Vector3Int cellPos = baseCell.topTilePos;
+
+        if (stepIndex == maxStepIndex)
+            return;
+        
+        if (board.Count > cellPos.x + 1)
+        {
+            var northCell = board[cellPos.x + 1][cellPos.y];
+            if (!movementCells.Contains(northCell))
+            {
+                movementCells.Add(northCell);
+            }
+            HighlightAdjacentCells(northCell, stepIndex + 1, maxStepIndex);
+        }
+
+        if (board[cellPos.x].Count > cellPos.y + 1)
+        {
+            var westCell = board[cellPos.x][cellPos.y + 1];
+            if (!movementCells.Contains(westCell))
+            {
+                movementCells.Add(westCell);
+            }
+            HighlightAdjacentCells(westCell, stepIndex + 1, maxStepIndex);
+        }
+
+        if (cellPos.x - 1 >= 0)
+        {
+            var southCell = board[cellPos.x - 1][cellPos.y];
+            if (!movementCells.Contains(southCell))
+            {
+                movementCells.Add(southCell);
+            }
+            HighlightAdjacentCells(southCell, stepIndex + 1, maxStepIndex);
+        }
+
+        if (cellPos.y - 1 >= 0)
+        {
+            var eastCell = board[cellPos.x][cellPos.y - 1];
+            if (!movementCells.Contains(eastCell))
+            {
+                movementCells.Add(eastCell);
+            }
+            HighlightAdjacentCells(eastCell, stepIndex + 1, maxStepIndex);
         }
     }
 
