@@ -65,11 +65,13 @@ public class InputHandler : MonoBehaviour
                         if (curAllyClicked != null)
                         {
                             curAllyClicked.OnMove(cell);
+                            BoardManager.Instance.HideMovementTileOptions();
                         }
                     }
                     else
                     {
                         curAllyClicked = (Ally)cell.characterOnTile; // temp
+                        BoardManager.Instance.ShowMovementTileOptions(curAllyClicked);
                     }
                 }
             }
@@ -89,8 +91,7 @@ public class InputHandler : MonoBehaviour
                     var cell = BoardManager.Instance.board[pos.x][pos.y];
                     if (cell.characterOnTile == null)
                     {
-                        Vector3 centerOfTilePos = baseTileMap.GetCellCenterWorld(cell.topTilePos);
-                        centerOfTilePos.y += +0.25f;
+                        Vector3 centerOfTilePos = BoardManager.Instance.GetCellCenterWorld(cell);
                         var newAlly = Instantiate(allyPrefab, centerOfTilePos, allyPrefab.transform.rotation);
                         cell.characterOnTile = newAlly;
                         newAlly.curCell = cell;

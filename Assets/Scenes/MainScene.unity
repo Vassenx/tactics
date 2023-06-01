@@ -3174,7 +3174,7 @@ Tilemap:
   - m_RefCount: 293
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray:
-  - m_RefCount: 9930
+  - m_RefCount: 10516
     m_Data: {fileID: 5148033105748811024, guid: 729178f9226a72a4d96e42199142a324, type: 3}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11122,7 +11122,7 @@ MonoBehaviour:
   overlayTileMap: {fileID: 658013275}
   highlightTileMap: {fileID: 1261173026}
   clickTileMap: {fileID: 153665563}
-  obstructionTileMap: {fileID: 0}
+  obstructionTileMap: {fileID: 1631851621}
   highlightTile: {fileID: 11400000, guid: 510bc77fe69708541b2dc73df3d92190, type: 2}
   clickTile: {fileID: 11400000, guid: 4e81640fa54ee97479b86cba14f4eab1, type: 2}
   topSprites:

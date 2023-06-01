@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Ally : Character
 {
-    public Cell curCell;
-
     public void OnMove(Cell nextCell)
     {
         curCell.characterOnTile = null;

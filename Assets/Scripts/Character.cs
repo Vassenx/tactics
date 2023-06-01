@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public Cell curCell;
 
+    public Stats stats;
 }
