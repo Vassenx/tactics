@@ -90,7 +90,7 @@ public class InputHandler : MonoBehaviour
                     if (cell.characterOnTile == null)
                     {
                         Vector3 centerOfTilePos = baseTileMap.GetCellCenterWorld(cell.topTilePos);
-                        centerOfTilePos.z += 0.5f;
+                        centerOfTilePos.y += +0.25f;
                         var newAlly = Instantiate(allyPrefab, centerOfTilePos, allyPrefab.transform.rotation);
                         cell.characterOnTile = newAlly;
                         newAlly.curCell = cell;
