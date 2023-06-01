@@ -162,8 +162,8 @@ TextureImporter:
       name: Anims_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 846
+        x: 866
+        y: 1128
         width: 433
         height: 282
       alignment: 0
@@ -183,8 +183,8 @@ TextureImporter:
       name: Anims_3
       rect:
         serializedVersion: 2
-        x: 433
-        y: 846
+        x: 1299
+        y: 1128
         width: 433
         height: 282
       alignment: 0
@@ -205,7 +205,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 564
+        y: 846
         width: 433
         height: 282
       alignment: 0
@@ -226,7 +226,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 433
-        y: 564
+        y: 846
         width: 433
         height: 282
       alignment: 0
@@ -246,8 +246,8 @@ TextureImporter:
       name: Anims_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 282
+        x: 866
+        y: 846
         width: 433
         height: 282
       alignment: 0
@@ -267,8 +267,8 @@ TextureImporter:
       name: Anims_7
       rect:
         serializedVersion: 2
-        x: 433
-        y: 282
+        x: 1299
+        y: 846
         width: 433
         height: 282
       alignment: 0
@@ -289,7 +289,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 564
         width: 433
         height: 282
       alignment: 0
@@ -310,7 +310,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 433
-        y: 0
+        y: 564
         width: 433
         height: 282
       alignment: 0
@@ -326,6 +326,216 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Anims_10
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 564
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 987b5e8252de4f640a7f3679bcf05414
+      internalID: -1332641221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_11
+      rect:
+        serializedVersion: 2
+        x: 1299
+        y: 564
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdc0cbca864709d4c99634141f785228
+      internalID: -1568525606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 282
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4678361b65cb4ee4b8b8ef8232d647b7
+      internalID: 2046780990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_13
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 282
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a21e375644a98e4991b0763ce03c3bf
+      internalID: 1763005007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_14
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 282
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb98efd1c4145ab4e93ae9967da8e93e
+      internalID: 1960259601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_15
+      rect:
+        serializedVersion: 2
+        x: 1299
+        y: 282
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a8cce67e470a93448407035163f6279
+      internalID: 690428863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8303895f13a00bb4e8a556b750000476
+      internalID: 988931738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_17
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 0
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61e9d1af3d016b949af2ec0286adbc4c
+      internalID: -1205104856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_18
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 0
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25a4cbed0174fc7469984b7f6faa4f7c
+      internalID: -289121310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anims_19
+      rect:
+        serializedVersion: 2
+        x: 1299
+        y: 0
+        width: 433
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 467b5799a3eba294b99d61e3649c2710
+      internalID: 23274159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -337,16 +547,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Anims_19: 23274159
+      Anims_17: -1205104856
       Anims_5: 2035694213
       Anims_7: -1457285053
+      Anims_12: 2046780990
+      Anims_16: 988931738
       Anims_4: 857462653
       Anims_0: 1469322492
       Anims_1: -19953769
       Anims_8: 103485430
       Anims_6: 2018812555
+      Anims_14: 1960259601
       Anims_9: -1094307284
       Anims_3: -253628996
+      Anims_10: -1332641221
+      Anims_15: 690428863
+      Anims_11: -1568525606
+      Anims_13: 1763005007
       Anims_2: 1607359847
+      Anims_18: -289121310
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
