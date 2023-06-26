@@ -60,12 +60,17 @@ public class InputHandler : MonoBehaviour
                 if(BoardManager.Instance.clickTilePosDictionary.TryGetValue(hit.collider.gameObject, out Vector3Int pos))
                 {
                     var cell = BoardManager.Instance.board[pos.x][pos.y];
+
                     if (cell.characterOnTile == null)
                     {
                         if (curAllyClicked != null)
                         {
-                            curAllyClicked.OnMove(cell);
-                            BoardManager.Instance.HideMovementTileOptions();
+                            List<Cell> path = new List<Cell>();
+                            if (BoardManager.Instance.GetPath(curAllyClicked.curCellOn, cell, curAllyClicked.stats.movement, out path))
+                            {
+                                curAllyClicked.OnMove(path);
+                                BoardManager.Instance.HideMovementTileOptions();
+                            }
                         }
                     }
                     else
@@ -94,7 +99,7 @@ public class InputHandler : MonoBehaviour
                         Vector3 centerOfTilePos = BoardManager.Instance.GetCellCenterWorld(cell);
                         var newAlly = Instantiate(allyPrefab, centerOfTilePos, allyPrefab.transform.rotation);
                         cell.characterOnTile = newAlly;
-                        newAlly.curCell = cell;
+                        newAlly.curCellOn = cell;
                     }
                 }
             }

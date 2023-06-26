@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c901dc276af5c4ab00bfa7d3c07840, type: 3}
   m_Name: AllyStats
   m_EditorClassIdentifier: 
-  movement: 1
+  movement: 3
+  movementSpeed: 4

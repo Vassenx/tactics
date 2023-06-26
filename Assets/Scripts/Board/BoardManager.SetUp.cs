@@ -141,19 +141,25 @@ public partial class BoardManager : MonoBehaviour
         }
     }
     
-    // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO NOT DONE
     private void UpdateObstructionTileMap()
     {
-        obstructionTileMap.ClearAllTiles();
+        obstructionTileMap.gameObject.SetActive(false);
         
         for (int x = 0; x < board.Count; x++)
         {
             for (int y = 0; y < board[x].Count; y++)
             {
-                Vector3Int topTilePos = board[x][y].topTilePos;
-                ++topTilePos.z;
-                clickTileMap.SetTile(topTilePos, clickTile);
-                clickTilePosDictionary.Add(clickTileMap.GetInstantiatedObject(topTilePos), topTilePos);
+                BoundsInt bounds = baseTileMap.cellBounds;
+
+                for (int z = bounds.zMin; z < bounds.zMax; z++)
+                {
+                    var pos = new Vector3Int(x, y, z);
+                    if(obstructionTileMap.HasTile(pos))
+                    {
+                        Cell obstructedCell = board[x][y];
+                        obstructedCell.isObstructed = true;
+                    }
+                }
             }
         }
     }

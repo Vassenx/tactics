@@ -7,16 +7,19 @@ public partial class BoardManager : MonoBehaviour
     
     public List<List<Cell>> board { get; private set; }
     public List<Cell> movementCells { get; private set; }
+
+    private PathFinder pathFinder;
     
     private void Awake()
     {
         Initialize();
+
+        pathFinder = new PathFinder();
     }
 
     [ContextMenu("Initialize Board")]
     public void Initialize()
     {
-        
 #region Singleton
         if (Instance == null)
         {
@@ -36,6 +39,7 @@ public partial class BoardManager : MonoBehaviour
         InitializeOverlayDictionary();
         UpdateOverlayTileMap();
         UpdateClickTileMap();
+        UpdateObstructionTileMap();
     }
 
     public Vector3 GetCellCenterWorld(Cell cell)
@@ -59,7 +63,7 @@ public partial class BoardManager : MonoBehaviour
 
     public void ShowMovementTileOptions(Character character)
     {
-        Cell cell = character.curCell;
+        Cell cell = character.curCellOn;
 
         HighlightAdjacentCells(cell, 0, character.stats.movement);
 
@@ -70,61 +74,76 @@ public partial class BoardManager : MonoBehaviour
             highlightTileMap.SetTile(highlightMovementPos, highlightTile);
         }
     }
+    
+    public void HideMovementTileOptions()
+    {
+        foreach (Cell movementCell in movementCells)
+        {
+            var highlightMovementPos = movementCell.topTilePos;
+            ++highlightMovementPos.z;
+            highlightTileMap.SetTile(highlightMovementPos, null);
+        }
+        
+        movementCells.Clear();
+    }
 
     // its recursive and not optimal. :p
     private void HighlightAdjacentCells(Cell baseCell, int stepIndex, int maxStepIndex)
     {
-        Vector3Int cellPos = baseCell.topTilePos;
-
         if (stepIndex == maxStepIndex)
             return;
+
+        var neighborCells = GetNeighborCells(baseCell);
+        foreach (Cell neighbor in neighborCells)
+        {
+            if (neighbor.isObstructed) // TODO: indication that its unselectable
+                return;
         
+            if (!movementCells.Contains(neighbor))
+            {
+                movementCells.Add(neighbor);
+            }
+            
+            HighlightAdjacentCells(neighbor, stepIndex + 1, maxStepIndex);
+        }
+    }
+
+    public List<Cell> GetNeighborCells(Cell cell)
+    {
+        var neighbors = new List<Cell>();
+        
+        Vector3Int cellPos = cell.topTilePos;
+
         if (board.Count > cellPos.x + 1)
         {
             var northCell = board[cellPos.x + 1][cellPos.y];
-            if (!movementCells.Contains(northCell))
-            {
-                movementCells.Add(northCell);
-            }
-            HighlightAdjacentCells(northCell, stepIndex + 1, maxStepIndex);
+            neighbors.Add(northCell);
         }
 
         if (board[cellPos.x].Count > cellPos.y + 1)
         {
             var westCell = board[cellPos.x][cellPos.y + 1];
-            if (!movementCells.Contains(westCell))
-            {
-                movementCells.Add(westCell);
-            }
-            HighlightAdjacentCells(westCell, stepIndex + 1, maxStepIndex);
+            neighbors.Add(westCell);
         }
 
         if (cellPos.x - 1 >= 0)
         {
             var southCell = board[cellPos.x - 1][cellPos.y];
-            if (!movementCells.Contains(southCell))
-            {
-                movementCells.Add(southCell);
-            }
-            HighlightAdjacentCells(southCell, stepIndex + 1, maxStepIndex);
+            neighbors.Add(southCell);
         }
 
         if (cellPos.y - 1 >= 0)
         {
             var eastCell = board[cellPos.x][cellPos.y - 1];
-            if (!movementCells.Contains(eastCell))
-            {
-                movementCells.Add(eastCell);
-            }
-            HighlightAdjacentCells(eastCell, stepIndex + 1, maxStepIndex);
+            neighbors.Add(eastCell);
         }
+
+        return neighbors;
     }
 
-    public void HideMovementTileOptions()
+    public bool GetPath(Cell start, Cell end, int maxDistance, out List<Cell> path)
     {
-        foreach (Cell movementCell in movementCells)
-        {
-            highlightTileMap.SetTile(movementCell.topTilePos, null);
-        }
+        path = pathFinder.FindPath(start, end, maxDistance);
+        return path.Count > 0;
     }
 }

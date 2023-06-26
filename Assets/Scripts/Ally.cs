@@ -1,30 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Ally : Character
 {
-    public void OnMove(Cell nextCell)
-    {
-        curCell.characterOnTile = null;
+    private List<Cell> path;
 
-        Vector3 curWorldPos = BoardManager.Instance.GetCellCenterWorld(curCell);
-        Vector3 nextWorldPos = BoardManager.Instance.GetCellCenterWorld(nextCell);
-        StartCoroutine(LerpPosition(curWorldPos, nextWorldPos, stats.movementSpeed));
-        
-        nextCell.characterOnTile = this;
-        curCell = nextCell;
+    private void Start()
+    {
+        path = new List<Cell>();
     }
 
-    IEnumerator LerpPosition(Vector3 startPosition, Vector3 targetPosition, float duration)
+    public void OnMove(List<Cell> newPath)
     {
-        float time = 0;
-        while (time < duration)
+        path = newPath;
+    }
+
+    public void LateUpdate()
+    {
+        if (path.Count > 0)
         {
-            transform.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
-            time += Time.deltaTime;
-            yield return null;
+            curCellOn.characterOnTile = null;
+
+            Cell nextCell = path[0];
+            int height = nextCell.topTilePos.z;
+            Vector2 nextCellPos = BoardManager.Instance.GetCellCenterWorld(nextCell);
+
+            transform.position = Vector2.MoveTowards(transform.position, nextCellPos, stats.movementSpeed * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, transform.position.y, height);
+
+            if(Vector2.SqrMagnitude((Vector2)(transform.position) - nextCellPos) < 0.001f)
+            {
+                // slight offset to get sort order correct, TODO
+                transform.position = new Vector3(transform.position.x, transform.position.y + 0.0001f, transform.position.z);
+
+                curCellOn = nextCell;
+                path.Remove(nextCell);
+            }
         }
-        transform.position = targetPosition;
     }
 }

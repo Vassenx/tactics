@@ -11,6 +11,21 @@ public class Cell
 
     public Character characterOnTile;
 
+    public bool isObstructed = false;
+
+#region A*
+
+    public int G;
+    public int H;
+    public int F
+    {
+        get { return G + H;  }
+    }
+
+    public Cell previousCell;
+
+#endregion
+
     public Cell(List<TileBase> tiles, TileBase top, Vector3Int topPos)
     {
         verticalTiles = tiles;
