@@ -38,8 +38,8 @@ public partial class BoardManager : MonoBehaviour
         // MoveBoardToOrigin();
         InitializeOverlayDictionary();
         UpdateOverlayTileMap();
-        UpdateClickTileMap();
         UpdateObstructionTileMap();
+        UpdateClickTileMap();
     }
 
     public Vector3 GetCellCenterWorld(Cell cell)

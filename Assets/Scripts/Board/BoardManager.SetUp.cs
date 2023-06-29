@@ -133,6 +133,13 @@ public partial class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < board[x].Count; y++)
             {
+                // TODO: two 'obstructed' types
+                // 1. water/rocks/hazards
+                // 2. non flat surfaces that would need a special poly collider (slanted roofs)
+                // this is to fix the second type. remove once implement poly collider into this function
+                if (board[x][y].isObstructed)
+                    continue;
+                
                 Vector3Int topTilePos = board[x][y].topTilePos;
                 ++topTilePos.z;
                 clickTileMap.SetTile(topTilePos, clickTile);

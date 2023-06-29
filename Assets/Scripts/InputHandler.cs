@@ -60,7 +60,9 @@ public class InputHandler : MonoBehaviour
                 if(BoardManager.Instance.clickTilePosDictionary.TryGetValue(hit.collider.gameObject, out Vector3Int pos))
                 {
                     var cell = BoardManager.Instance.board[pos.x][pos.y];
-
+                    if (cell.isObstructed)
+                        return;
+                    
                     if (cell.characterOnTile == null)
                     {
                         if (curAllyClicked != null)
@@ -97,6 +99,7 @@ public class InputHandler : MonoBehaviour
                     if (cell.characterOnTile == null)
                     {
                         Vector3 centerOfTilePos = BoardManager.Instance.GetCellCenterWorld(cell);
+                        centerOfTilePos.z += 1f;
                         var newAlly = Instantiate(allyPrefab, centerOfTilePos, allyPrefab.transform.rotation);
                         cell.characterOnTile = newAlly;
                         newAlly.curCellOn = cell;

@@ -24,7 +24,7 @@ public class Ally : Character
             curCellOn.characterOnTile = null;
 
             Cell nextCell = path[0];
-            int height = nextCell.topTilePos.z;
+            float height = nextCell.topTilePos.z + 1f;
             Vector2 nextCellPos = BoardManager.Instance.GetCellCenterWorld(nextCell);
 
             transform.position = Vector2.MoveTowards(transform.position, nextCellPos, stats.movementSpeed * Time.deltaTime);
@@ -33,7 +33,7 @@ public class Ally : Character
             if(Vector2.SqrMagnitude((Vector2)(transform.position) - nextCellPos) < 0.001f)
             {
                 // slight offset to get sort order correct, TODO
-                transform.position = new Vector3(transform.position.x, transform.position.y + 0.0001f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y + 0.0001f, transform.position.z + 1f);
 
                 curCellOn = nextCell;
                 path.Remove(nextCell);
