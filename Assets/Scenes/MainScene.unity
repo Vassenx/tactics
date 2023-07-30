@@ -3293,9 +3293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6281d0d7bb9cf0b42b848ec50b6bd9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 792587917}
-  baseTileMap: {fileID: 1240089706}
-  clickTile: {fileID: 11400000, guid: 4e81640fa54ee97479b86cba14f4eab1, type: 2}
   allyPrefab: {fileID: 327165367227093363, guid: f4c8b6fabb816fd40b21a6b90a663280, type: 3}
   originalMat: {fileID: 2100000, guid: de6df625f7aaa994e836604b4a155f74, type: 2}
   outlineMat: {fileID: 2100000, guid: 5d971cdae3ac9ad4d88f9274ad79253c, type: 2}
@@ -11367,6 +11364,7 @@ MonoBehaviour:
   obstructionTileMap: {fileID: 1631851621}
   characterPlacementTileMap: {fileID: 1453677077}
   highlightTile: {fileID: 11400000, guid: 510bc77fe69708541b2dc73df3d92190, type: 2}
+  selectedTile: {fileID: 11400000, guid: 45306ac919e89f7428266351a85ac02e, type: 2}
   clickTile: {fileID: 11400000, guid: 4e81640fa54ee97479b86cba14f4eab1, type: 2}
   topSprites:
   - {fileID: 11400000, guid: b393a5a3f798e3349b633ed2e3bc56c7, type: 2}

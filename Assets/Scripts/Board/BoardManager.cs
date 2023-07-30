@@ -7,6 +7,7 @@ public partial class BoardManager : MonoBehaviour
     
     public List<List<Cell>> board { get; private set; }
     public List<Cell> movementCells { get; private set; }
+    public Cell curSelectedCell { get; private set; }
 
     private PathFinder pathFinder;
     
@@ -54,23 +55,34 @@ public partial class BoardManager : MonoBehaviour
         return centerOfTilePos;
     }
     
-    // TODO clear old highlighting tiles
-    public void UpdateHighlightTileMap(List<Cell> cellsToHighlight)
+    public void ShowSelectedCell(Cell newSelectedCell)
     {
-        foreach (var cell in cellsToHighlight)
+        HideSelectedCell();
+        
+        var newTopPos = newSelectedCell.topTilePos;
+        ++newTopPos.z;
+        highlightTileMap.SetTile(newTopPos, selectedTile);
+        
+        curSelectedCell = newSelectedCell;
+    }
+
+    public void HideSelectedCell()
+    {
+        if (curSelectedCell != null)
         {
-            var topPos = cell.topTilePos;
-            ++topPos.z;
-            highlightTileMap.SetTile(topPos, highlightTile);
+            var curTopPos = curSelectedCell.topTilePos;
+            ++curTopPos.z;
+            highlightTileMap.SetTile(curTopPos, null);
         }
     }
 
-    public void ShowMovementTileOptions(Character character)
+    public void ShowMovementCellOptions(Character character)
     {
         Cell cell = character.curCellOn;
 
-        HighlightAdjacentCells(cell, 0, character.stats.movement);
-
+        GetMovementCells(cell, 0, character.stats.movement);
+        movementCells.Remove(cell); // don't include cell the character is already on
+        
         foreach (Cell movementCell in movementCells)
         {
             var highlightMovementPos = movementCell.topTilePos;
@@ -79,7 +91,7 @@ public partial class BoardManager : MonoBehaviour
         }
     }
     
-    public void HideMovementTileOptions()
+    public void HideMovementCellOptions()
     {
         foreach (Cell movementCell in movementCells)
         {
@@ -92,7 +104,7 @@ public partial class BoardManager : MonoBehaviour
     }
 
     // its recursive and not optimal. :p
-    private void HighlightAdjacentCells(Cell baseCell, int stepIndex, int maxStepIndex)
+    private void GetMovementCells(Cell baseCell, int stepIndex, int maxStepIndex)
     {
         if (stepIndex == maxStepIndex)
             return;
@@ -108,7 +120,7 @@ public partial class BoardManager : MonoBehaviour
                 movementCells.Add(neighbor);
             }
             
-            HighlightAdjacentCells(neighbor, stepIndex + 1, maxStepIndex);
+            GetMovementCells(neighbor, stepIndex + 1, maxStepIndex);
         }
     }
 

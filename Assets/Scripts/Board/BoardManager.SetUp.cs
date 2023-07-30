@@ -20,6 +20,7 @@ public partial class BoardManager : MonoBehaviour
 
     [Header("Special Tiles")]
     [SerializeField] private TileBase highlightTile;
+    [SerializeField] private TileBase selectedTile;
     [SerializeField] private TileBase clickTile;
 
     /* Overlay (decoration) Tiles */
