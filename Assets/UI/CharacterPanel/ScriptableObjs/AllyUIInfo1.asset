@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c901dc276af5c4ab00bfa7d3c07840, type: 3}
-  m_Name: AllyStats
+  m_Script: {fileID: 11500000, guid: 09411e16247de624a92bc487e4dea275, type: 3}
+  m_Name: AllyUIInfo1
   m_EditorClassIdentifier: 
-  movement: 3
-  movementSpeed: 4
-  maxHealth: 10
+  charName: Test 1
+  portrait: {fileID: 1469322492, guid: b5579a93b24536d49aea7f3433338667, type: 3}
+  stats: {fileID: 11400000, guid: d7e400fe23c365f47847a4b10d2c95bc, type: 2}

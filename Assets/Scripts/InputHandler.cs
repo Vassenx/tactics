@@ -13,6 +13,8 @@ public class InputHandler : MonoBehaviour
     // temp
     [SerializeField] private Ally allyPrefab;
     private Ally curAllyClicked;
+    public Material originalMat;
+    public Material outlineMat;
     
     private void Start()
     {
@@ -45,6 +47,23 @@ public class InputHandler : MonoBehaviour
                 {
                     BoardManager.Instance.UpdateHighlightTileMap(new List<Cell>() { BoardManager.Instance.board[pos.x][pos.y] });
                 }
+                
+                var cell = BoardManager.Instance.board[pos.x][pos.y];
+
+                if (cell.characterOnTile is Ally)
+                {
+                    // TODO: clear other allies if others are clicked right now
+                    curAllyClicked = (Ally)cell.characterOnTile; // temp
+                    BoardManager.Instance.ShowMovementTileOptions(curAllyClicked);
+                    curAllyClicked.gameObject.GetComponent<Renderer>().material = outlineMat;
+                }
+                else if (cell.characterOnTile is Enemy)
+                {
+                    if (curAllyClicked != null)
+                    {
+                        curAllyClicked.Attack(cell.characterOnTile);
+                    }
+                }
             }
         }
 
@@ -72,13 +91,9 @@ public class InputHandler : MonoBehaviour
                             {
                                 curAllyClicked.OnMove(path);
                                 BoardManager.Instance.HideMovementTileOptions();
+                                curAllyClicked.gameObject.GetComponent<Renderer>().material = originalMat;
                             }
                         }
-                    }
-                    else
-                    {
-                        curAllyClicked = (Ally)cell.characterOnTile; // temp
-                        BoardManager.Instance.ShowMovementTileOptions(curAllyClicked);
                     }
                 }
             }
@@ -96,16 +111,11 @@ public class InputHandler : MonoBehaviour
                 if(BoardManager.Instance.clickTilePosDictionary.TryGetValue(hit.collider.gameObject, out Vector3Int pos))
                 {
                     var cell = BoardManager.Instance.board[pos.x][pos.y];
-                    if (cell.characterOnTile == null)
-                    {
-                        Vector3 centerOfTilePos = BoardManager.Instance.GetCellCenterWorld(cell);
-                        centerOfTilePos.z += 1f;
-                        var newAlly = Instantiate(allyPrefab, centerOfTilePos, allyPrefab.transform.rotation);
-                        cell.characterOnTile = newAlly;
-                        newAlly.curCellOn = cell;
-                    }
+                    BoardManager.Instance.SpawnCharacterAtCell(cell, allyPrefab);
                 }
             }
         }
     }
+
+
 }

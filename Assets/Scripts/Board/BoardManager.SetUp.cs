@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -14,16 +16,25 @@ public partial class BoardManager : MonoBehaviour
     [SerializeField] private Tilemap highlightTileMap;
     [SerializeField] private Tilemap clickTileMap;
     [SerializeField] private Tilemap obstructionTileMap;
+    [SerializeField] private Tilemap characterPlacementTileMap;
 
     [Header("Special Tiles")]
     [SerializeField] private TileBase highlightTile;
     [SerializeField] private TileBase clickTile;
 
+    /* Overlay (decoration) Tiles */
     [SerializeField] private List<TileBase> topSprites = new List<TileBase>();
     [SerializeField] private List<TileBase> overlaySprites = new List<TileBase>();
     private Dictionary<TileBase, TileBase> topToOverlaySprites;
 
     public Dictionary<GameObject, Vector3Int> clickTilePosDictionary;
+    
+    /* Character Placement */
+    [SerializeField] private List<TileBase> characterSprites = new List<TileBase>();
+    [SerializeField] private List<Character> characterArchetypes = new List<Character>();
+    public Dictionary<TileBase, Character> characterPlacementDictionary; // sprites placed in characterPlacementTileMap to character type
+
+    public Dictionary<Cell, Character> charactersByLocation;
     
     [ContextMenu("Move Board To Origin")]
     private void MoveBoardToOrigin()
@@ -124,6 +135,15 @@ public partial class BoardManager : MonoBehaviour
         }
     }
     
+    private void InitializeCharacterLocationDictionary()
+    {
+        characterPlacementDictionary = new Dictionary<TileBase, Character>();
+        for (int i = 0; i < characterSprites.Count; i++)
+        {
+            characterPlacementDictionary.Add(characterSprites[i], characterArchetypes[i]);
+        }
+    }
+    
     private void UpdateClickTileMap()
     {
         clickTileMap.ClearAllTiles();
@@ -190,6 +210,66 @@ public partial class BoardManager : MonoBehaviour
                     overlayTileMap.SetTile(overlayTilePos, overlayTile);
                 }
             }
+        }
+    }
+    
+    private void UpdateCharacterPlacementTileMap()
+    {
+        characterPlacementTileMap.gameObject.SetActive(false);
+        charactersByLocation = new Dictionary<Cell, Character>();
+        
+        for (int x = 0; x < board.Count; x++)
+        {
+            for (int y = 0; y < board[x].Count; y++)
+            {
+                BoundsInt bounds = baseTileMap.cellBounds;
+
+                for (int z = bounds.zMin; z < bounds.zMax; z++)
+                {
+                    var pos = new Vector3Int(x, y, z);
+                    if(characterPlacementTileMap.HasTile(pos))
+                    {
+                        Cell cellWithChar = board[x][y];
+                        if (cellWithChar.isObstructed)
+                        {
+                            Debug.LogWarning($"Character is on obstructed tile: ({x},{y}). " +
+                                             "Remove tile from obstruction tile map or character will not spawn");
+                            continue;
+                        }
+
+                        var tile = characterPlacementTileMap.GetTile<TileBase>(pos);
+                        if (characterPlacementDictionary.ContainsKey(tile))
+                        {
+                            Character character = characterPlacementDictionary[tile];
+                            charactersByLocation.Add(cellWithChar, character);
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"To tile asset to character matching found for tile: {tile.name}");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void PlaceCharactersOnBoard()
+    {
+        foreach (var (cell, character) in charactersByLocation)
+        {
+            SpawnCharacterAtCell(cell, character);
+        }
+    }
+    
+    public void SpawnCharacterAtCell(Cell cell, Character character)
+    {
+        if (cell.characterOnTile == null)
+        {
+            Vector3 centerOfTilePos = BoardManager.Instance.GetCellCenterWorld(cell);
+            centerOfTilePos.z += 1f;
+            var newCharacter = Instantiate(character, centerOfTilePos, character.transform.rotation);
+            cell.characterOnTile = newCharacter;
+            newCharacter.curCellOn = cell;
         }
     }
 }

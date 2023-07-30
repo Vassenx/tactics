@@ -37,9 +37,13 @@ public partial class BoardManager : MonoBehaviour
         PopulateBoard();
         // MoveBoardToOrigin();
         InitializeOverlayDictionary();
+        InitializeCharacterLocationDictionary();
         UpdateOverlayTileMap();
         UpdateObstructionTileMap();
         UpdateClickTileMap();
+        UpdateCharacterPlacementTileMap();
+
+        PlaceCharactersOnBoard();
     }
 
     public Vector3 GetCellCenterWorld(Cell cell)

@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/CharacterViewer/Resources/CharacterInfoWindowStyleSheet.uss?fileID=7433441132597879392&amp;guid=9e2d717d471afc948ad74315f60ceb52&amp;type=3#CharacterInfoWindowStyleSheet" />
+    <ui:Button text="&#x9;" display-tooltip-when-elided="true" name="char-button" class="normal-button-style">
+        <ui:VisualElement name="icon-container" style="width: 100%; height: 100%; background-image: none; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+            <ui:VisualElement name="icon" style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Sprites/Anims.png?fileID=1469322492&amp;guid=b5579a93b24536d49aea7f3433338667&amp;type=3#Anims_0&apos;); scale: 1.8 1.8; translate: 0 24px;" />
+        </ui:VisualElement>
+    </ui:Button>
+</ui:UXML>

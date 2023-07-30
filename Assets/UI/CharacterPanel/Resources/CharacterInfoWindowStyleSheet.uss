@@ -1,0 +1,57 @@
+.charinfo_container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: flex-end;
+    align-content: center;
+    background-color: rgba(0, 0, 0, 0.41);
+    color: rgb(0, 0, 0);
+}
+
+.char-stats-text-element {
+    flex-basis: 25%;
+    padding: 5px;
+    flex-direction: column;
+    height: 25%;
+    width: 100%;
+    font-size: 28px;
+    -unity-text-align: middle-left;
+    flex-shrink: 1;
+}
+
+.normal-button-style {
+    background-color: rgba(88, 88, 88, 0);
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 200px;
+    flex-basis: auto;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-shrink: 1;
+    height: 150px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.highlight-button-style {
+    background-color: rgba(88, 88, 88, 0);
+    border-left-color: rgba(241, 240, 96, 255);
+    border-right-color: rgba(241, 240, 96, 255);
+    border-top-color: rgba(241, 240, 96, 255);
+    border-bottom-color: rgba(241, 240, 96, 255);
+}
