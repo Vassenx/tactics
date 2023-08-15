@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: d7e400fe23c365f47847a4b10d2c95bc, type: 2}
+  UIInfo: {fileID: 11400000, guid: 60ae8a20b9c6ae24d9cd024a5dce3325, type: 2}
 --- !u!95 &3743234289679158078
 Animator:
   serializedVersion: 5

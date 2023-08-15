@@ -14,12 +14,12 @@ namespace UI
         private VisualElement iconContainer;
         private VisualElement icon;
 
-        public CharacterUIInfo characterData { get; private set; }
+        public Character character { get; private set; }
         private CharacterPanelUIController characterPanel;
         
-        public CharacterButtonController(CharacterUIInfo characterUIInfo, TemplateContainer characterButtonElement, CharacterPanelUIController panel)
+        public CharacterButtonController(Character connectedCharacter, TemplateContainer characterButtonElement, CharacterPanelUIController panel)
         {
-            characterData = characterUIInfo;
+            character = connectedCharacter;
             characterPanel = panel;
             SetVisualElements(characterButtonElement);
             SetData();
@@ -40,7 +40,7 @@ namespace UI
 
         private void SetData()
         {
-            icon.style.backgroundImage = new StyleBackground(characterData.portrait);
+            icon.style.backgroundImage = new StyleBackground(character.UIInfo.portrait);
         }
 
         private void OnClick()

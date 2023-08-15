@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public partial class BoardManager : MonoBehaviour
     public Cell curSelectedCell { get; private set; }
 
     private PathFinder pathFinder;
+
+    public static Action OnBoardInitialized;
     
     private void Awake()
     {
@@ -43,8 +46,8 @@ public partial class BoardManager : MonoBehaviour
         UpdateObstructionTileMap();
         UpdateClickTileMap();
         UpdateCharacterPlacementTileMap();
-
-        PlaceCharactersOnBoard();
+        
+        OnBoardInitialized?.Invoke();
     }
 
     public Vector3 GetCellCenterWorld(Cell cell)

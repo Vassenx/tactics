@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
     public Cell curCellOn;
 
     public Stats stats;
+    public CharacterUIInfo UIInfo;
 
     public float health { get; protected set; }
     

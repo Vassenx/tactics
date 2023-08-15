@@ -7,5 +7,4 @@ public class CharacterUIInfo : ScriptableObject
 {
     public string charName;
     public Sprite portrait;
-    public Stats stats;
 }

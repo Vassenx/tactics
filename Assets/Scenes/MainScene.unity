@@ -3230,9 +3230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterButtonTemplate: {fileID: 9197481963319205126, guid: 84851eca8af932c48b6af44bc6533e70, type: 3}
-  charInfos:
-  - {fileID: 11400000, guid: 60ae8a20b9c6ae24d9cd024a5dce3325, type: 2}
-  - {fileID: 11400000, guid: e93b896b9333b6043924716a2b127ef7, type: 2}
 --- !u!114 &367539139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10442,6 +10439,26 @@ Tilemap:
   m_GameObject: {fileID: 1453677074}
   m_Enabled: 1
   m_Tiles:
+  - first: {x: 1, y: 8, z: 1}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 2, y: 8, z: 1}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 1, y: 9, z: 1}
     second:
       serializedVersion: 2
@@ -10474,13 +10491,13 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 3
+  - m_RefCount: 5
     m_Data: {fileID: 11400000, guid: 22dc2b089d9131940ab9624b39e0dafd, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 3
+  - m_RefCount: 5
     m_Data: {fileID: 1469322492, guid: b5579a93b24536d49aea7f3433338667, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 3
+  - m_RefCount: 5
     m_Data:
       e00: 1
       e01: 0
@@ -10499,13 +10516,13 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 3
+  - m_RefCount: 5
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 2, y: 12, z: 2}
+  m_Size: {x: 3, y: 12, z: 2}
   m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:

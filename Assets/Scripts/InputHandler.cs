@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class InputHandler : MonoBehaviour
 {
@@ -9,7 +9,21 @@ public class InputHandler : MonoBehaviour
     private Ally curAllyClicked;
     public Material originalMat;
     public Material outlineMat;
-    
+
+    public static Action<Character> OnSelectCharacter;
+
+    private void Awake()
+    {
+        OnSelectCharacter += (character) =>
+        {
+            Ally allyChar = (Ally)character;
+            if (allyChar != null)
+            {
+                SelectAlly(allyChar);
+            }
+        };
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -17,18 +31,17 @@ public class InputHandler : MonoBehaviour
             Cell cell = GetClickedCell();
             if (cell == null)
                 return;
-            
-            BoardManager.Instance.HideMovementCellOptions();
-            BoardManager.Instance.ShowSelectedCell(cell);
         
             if (cell.characterOnTile is Ally)
             {
-                SelectAlly((Ally)cell.characterOnTile);
+                OnSelectCharacter?.Invoke(cell.characterOnTile);
             }
             else if (cell.characterOnTile is Enemy)
             {
                 if (curAllyClicked != null)
                 {
+                    BoardManager.Instance.HideMovementCellOptions();
+                    BoardManager.Instance.ShowSelectedCell(cell);
                     curAllyClicked.Attack(cell.characterOnTile);
                 }
             }
@@ -86,17 +99,19 @@ public class InputHandler : MonoBehaviour
         return null;
     }
 
-    private void SelectAlly(Ally ally)
+    public void SelectAlly(Ally ally)
     {
         if (curAllyClicked != null)
         {
             curAllyClicked.gameObject.GetComponent<Renderer>().material = originalMat;
         }
 
+        BoardManager.Instance.HideMovementCellOptions();
+        BoardManager.Instance.ShowSelectedCell(ally.curCellOn);
+        
         BoardManager.Instance.ShowMovementCellOptions(ally);
         ally.gameObject.GetComponent<Renderer>().material = outlineMat;
         curAllyClicked = ally;
-
     }
 
     private void MoveAlly(Cell cell)

@@ -10,7 +10,6 @@ public class CharacterPanelUIController : MonoBehaviour
 {
     [Header("Button Template")]
     [SerializeField] private VisualTreeAsset characterButtonTemplate;
-    [SerializeField] private List<CharacterUIInfo> charInfos; // not unique list // TODO: temporarily serializefield for testing
 
     private VisualElement root;
     
@@ -43,7 +42,10 @@ public class CharacterPanelUIController : MonoBehaviour
     private void OnEnable()
     {
         SetVisualElements();
-        CreateCharacterButtons();
+
+        BoardManager.OnBoardInitialized += CreateCharacterButtons;
+        
+        InputHandler.OnSelectCharacter += (character) => { UpdateSelectedCharacter(FindButtonByChar(character));};
     }
 
     private void SetVisualElements()
@@ -61,21 +63,26 @@ public class CharacterPanelUIController : MonoBehaviour
         MagicLabel = root.Q<Label>(k_MagicLabel);
     }
 
+    private CharacterButtonController FindButtonByChar(Character charToFind)
+    {
+        return characterButtonControllers.Find(x => x.character == charToFind);
+    }
+
     private void CreateCharacterButtons()
     {
         var buttonsContainer = root.Q<VisualElement>(k_CharacterButtonsContainer);
         characterButtonControllers = new List<CharacterButtonController>();
         
-        charInfos.ForEach(charInfo =>
+        BoardManager.Instance.alliesOnBoard?.ForEach(character =>
         {
             TemplateContainer buttonContainer = characterButtonTemplate.Instantiate();
-            CharacterButtonController charButtonController = new CharacterButtonController(charInfo, buttonContainer, this);
+            CharacterButtonController charButtonController = new CharacterButtonController(character, buttonContainer, this);
             buttonsContainer.Add(buttonContainer);
             characterButtonControllers.Add(charButtonController);
 
             if (selectedButtonController == null)
             {
-                UpdateSelectedCharacter(charButtonController);
+                InputHandler.OnSelectCharacter?.Invoke(charButtonController.character);
             }
         });
     }
@@ -87,10 +94,10 @@ public class CharacterPanelUIController : MonoBehaviour
         newSelectedButtonController.ToggleHighlight(true);
         
         // visuals
-        var data = newSelectedButtonController.characterData;
-        selectedIcon.style.backgroundImage = new StyleBackground(data.portrait);
-        selectedNameLabel.text = data.charName;
-        HPLabel.text = "HP " + data.stats.maxHealth;
+        var character = newSelectedButtonController.character;
+        selectedIcon.style.backgroundImage = new StyleBackground(character.UIInfo.portrait);
+        selectedNameLabel.text = character.UIInfo.charName;
+        HPLabel.text = "HP " + character.stats.maxHealth;
         // TODO attack/defense/magic
         
         selectedButtonController = newSelectedButtonController;
@@ -98,11 +105,13 @@ public class CharacterPanelUIController : MonoBehaviour
     
     public void OnClickButton(CharacterButtonController newSelectedButtonController)
     {
-        UpdateSelectedCharacter(newSelectedButtonController);
+        InputHandler.OnSelectCharacter?.Invoke(newSelectedButtonController.character);
     }
 
     private void OnDisable()
     {
         characterButtonControllers.Clear();
+        
+        BoardManager.OnBoardInitialized -= CreateCharacterButtons;
     }
 }

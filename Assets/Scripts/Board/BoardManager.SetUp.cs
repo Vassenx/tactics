@@ -35,7 +35,7 @@ public partial class BoardManager : MonoBehaviour
     [SerializeField] private List<Character> characterArchetypes = new List<Character>();
     public Dictionary<TileBase, Character> characterPlacementDictionary; // sprites placed in characterPlacementTileMap to character type
 
-    public Dictionary<Cell, Character> charactersByLocation;
+    public List<Character> alliesOnBoard;
     
     [ContextMenu("Move Board To Origin")]
     private void MoveBoardToOrigin()
@@ -217,7 +217,7 @@ public partial class BoardManager : MonoBehaviour
     private void UpdateCharacterPlacementTileMap()
     {
         characterPlacementTileMap.gameObject.SetActive(false);
-        charactersByLocation = new Dictionary<Cell, Character>();
+        alliesOnBoard = new List<Character>();
         
         for (int x = 0; x < board.Count; x++)
         {
@@ -242,7 +242,7 @@ public partial class BoardManager : MonoBehaviour
                         if (characterPlacementDictionary.ContainsKey(tile))
                         {
                             Character character = characterPlacementDictionary[tile];
-                            charactersByLocation.Add(cellWithChar, character);
+                            SpawnCharacterAtCell(cellWithChar, character);
                         }
                         else
                         {
@@ -254,23 +254,17 @@ public partial class BoardManager : MonoBehaviour
         }
     }
 
-    private void PlaceCharactersOnBoard()
-    {
-        foreach (var (cell, character) in charactersByLocation)
-        {
-            SpawnCharacterAtCell(cell, character);
-        }
-    }
-    
-    public void SpawnCharacterAtCell(Cell cell, Character character)
+    public void SpawnCharacterAtCell(Cell cell, Character charPrefab)
     {
         if (cell.characterOnTile == null)
         {
-            Vector3 centerOfTilePos = BoardManager.Instance.GetCellCenterWorld(cell);
+            Vector3 centerOfTilePos = GetCellCenterWorld(cell);
             centerOfTilePos.z += 1f;
-            var newCharacter = Instantiate(character, centerOfTilePos, character.transform.rotation);
+            var newCharacter = Instantiate(charPrefab, centerOfTilePos, charPrefab.transform.rotation);
             cell.characterOnTile = newCharacter;
             newCharacter.curCellOn = cell;
+            
+            alliesOnBoard.Add(newCharacter); // TODO: could be enemy
         }
     }
 }
