@@ -58,26 +58,26 @@ public class ActionBar : MonoBehaviour
     private void OnPickMoveButton()
     {
         ToggleMainButtons(false);
-        OnPickMove.Invoke(ally);
+        OnPickMove?.Invoke(ally);
     }
 
     private void OnPickAttackButton()
     {
         ToggleMainButtons(false);
         ToggleSubButtons(true);
-        OnPickAttack.Invoke();
+        OnPickAttack?.Invoke();
     }
     
     private void OnPickMeleeAttackButton()
     {
         ToggleSubButtons(false);
-        OnPickAttackType.Invoke(ally, 0);
+        OnPickAttackType?.Invoke(ally, 0);
     }
     
     private void OnPickRangedAttackButton()
     {
         ToggleSubButtons(false);
-        OnPickAttackType.Invoke(ally, 1);
+        OnPickAttackType?.Invoke(ally, 1);
     }
     
     private void ToggleMainButtons(bool enable)

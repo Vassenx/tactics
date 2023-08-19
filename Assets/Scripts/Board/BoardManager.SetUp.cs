@@ -35,7 +35,7 @@ public partial class BoardManager : MonoBehaviour
     [SerializeField] private List<Character> characterArchetypes = new List<Character>();
     public Dictionary<TileBase, Character> characterPlacementDictionary; // sprites placed in characterPlacementTileMap to character type
 
-    public List<Character> alliesOnBoard;
+    public List<Ally> alliesOnBoard;
     
     [ContextMenu("Move Board To Origin")]
     private void MoveBoardToOrigin()
@@ -217,7 +217,7 @@ public partial class BoardManager : MonoBehaviour
     private void UpdateCharacterPlacementTileMap()
     {
         characterPlacementTileMap.gameObject.SetActive(false);
-        alliesOnBoard = new List<Character>();
+        alliesOnBoard = new List<Ally>();
         
         for (int x = 0; x < board.Count; x++)
         {
@@ -263,8 +263,13 @@ public partial class BoardManager : MonoBehaviour
             var newCharacter = Instantiate(charPrefab, centerOfTilePos, charPrefab.transform.rotation);
             cell.characterOnTile = newCharacter;
             newCharacter.curCellOn = cell;
-            
-            alliesOnBoard.Add(newCharacter); // TODO: could be enemy
+
+            // TODO: could be enemy
+            Ally newAlly = (Ally)newCharacter;
+            if (newAlly != null)
+            {
+                alliesOnBoard.Add(newAlly); 
+            }
         }
     }
 }
