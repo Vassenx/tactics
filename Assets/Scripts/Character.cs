@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [Header("Shaders")]
+    [SerializeField] private Material outlineMat;
+    [SerializeField] private Material originalMat;
+    [SerializeField] private Renderer renderer;
+    
     public Cell curCellOn;
 
     public Stats stats;
     public CharacterUIInfo UIInfo;
-
+    
     public float health { get; protected set; }
     
     private List<Cell> path;
@@ -26,9 +31,11 @@ public class Character : MonoBehaviour
         }
     }
     
-    public void OnMove(List<Cell> newPath)
+    public virtual void Move(List<Cell> newPath)
     {
         path = newPath;
+        
+        renderer.material = originalMat;
     }
 
     private void MoveAlongPath()
@@ -60,5 +67,15 @@ public class Character : MonoBehaviour
         {
             defender.health = Mathf.Clamp(defender.health - 5f, 0f, defender.stats.maxHealth);
         }
+    }
+
+    public virtual void SelectCharacter()
+    {
+        renderer.material = outlineMat;
+    }
+
+    public virtual void DeselectCharacter()
+    {
+        renderer.material = originalMat;
     }
 }

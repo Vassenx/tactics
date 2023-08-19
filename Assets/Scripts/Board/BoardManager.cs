@@ -48,6 +48,9 @@ public partial class BoardManager : MonoBehaviour
         UpdateCharacterPlacementTileMap();
         
         OnBoardInitialized?.Invoke();
+
+        ActionBar.OnPickMove += ShowMovementCellOptions;
+        ActionBar.OnPickAttackType += ShowAttackCellOptions;
     }
 
     public Vector3 GetCellCenterWorld(Cell cell)
@@ -125,6 +128,21 @@ public partial class BoardManager : MonoBehaviour
             
             GetMovementCells(neighbor, stepIndex + 1, maxStepIndex);
         }
+    }
+
+    private void ShowAttackCellOptions(Character attacker, int attackType)
+    {
+        // TODO:
+    }
+
+    private void GetAttackCellOptions(Character attacker, int attackType)
+    {
+        // TODO:
+    }
+    
+    private void HideAttackCellOptions()
+    {
+        // TODO:
     }
 
     public List<Cell> GetNeighborCells(Cell cell)

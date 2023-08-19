@@ -103,14 +103,13 @@ public class InputHandler : MonoBehaviour
     {
         if (curAllyClicked != null)
         {
-            curAllyClicked.gameObject.GetComponent<Renderer>().material = originalMat;
+            curAllyClicked.DeselectCharacter();
         }
-
         BoardManager.Instance.HideMovementCellOptions();
+
         BoardManager.Instance.ShowSelectedCell(ally.curCellOn);
+        ally.SelectCharacter();
         
-        BoardManager.Instance.ShowMovementCellOptions(ally);
-        ally.gameObject.GetComponent<Renderer>().material = outlineMat;
         curAllyClicked = ally;
     }
 
@@ -119,9 +118,8 @@ public class InputHandler : MonoBehaviour
         List<Cell> path = new List<Cell>();
         if (BoardManager.Instance.GetPath(curAllyClicked.curCellOn, cell, curAllyClicked.stats.movement, out path))
         {
-            curAllyClicked.OnMove(path);
+            curAllyClicked.Move(path);
             BoardManager.Instance.HideMovementCellOptions();
-            curAllyClicked.gameObject.GetComponent<Renderer>().material = originalMat;
         }
     }
 }
