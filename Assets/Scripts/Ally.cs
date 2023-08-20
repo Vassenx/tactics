@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Ally : Character
 {
+    [Header("UI")]
     public ActionBar actionBar;
 
     public override void SelectCharacter()
     {
         base.SelectCharacter();
-        
-        // TODO: if is my turn:
+
         actionBar.ShowActionBar();
     }
     

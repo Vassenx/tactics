@@ -7,10 +7,11 @@ public class Character : MonoBehaviour
     [Header("Shaders")]
     [SerializeField] private Material outlineMat;
     [SerializeField] private Material originalMat;
-    [SerializeField] private Renderer renderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     
     public Cell curCellOn;
 
+    [Header("Character Info")]
     public Stats stats;
     public CharacterUIInfo UIInfo;
     
@@ -35,7 +36,7 @@ public class Character : MonoBehaviour
     {
         path = newPath;
         
-        renderer.material = originalMat;
+        spriteRenderer.material = originalMat;
     }
 
     private void MoveAlongPath()
@@ -71,11 +72,11 @@ public class Character : MonoBehaviour
 
     public virtual void SelectCharacter()
     {
-        renderer.material = outlineMat;
+        spriteRenderer.material = outlineMat;
     }
 
     public virtual void DeselectCharacter()
     {
-        renderer.material = originalMat;
+        spriteRenderer.material = originalMat;
     }
 }

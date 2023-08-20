@@ -8,7 +8,7 @@ namespace UI
     {
         [SerializeField] private Button button;
         [SerializeField] private Image icon;
-        [SerializeField] private TextMeshProUGUI name;
+        [SerializeField] private TextMeshProUGUI allyName;
         
         //private const string k_highlightStyle = "highlight-button-style";
 
@@ -17,7 +17,7 @@ namespace UI
         
         public void Initialize(Ally connectedAlly, AllyPanelController panel)
         {
-            this.enabled = false; // no update function
+            enabled = false; // no update function
 
             ally = connectedAlly;
             allyPanelController = panel;

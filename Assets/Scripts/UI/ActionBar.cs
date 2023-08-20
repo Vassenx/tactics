@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class ActionBar : MonoBehaviour
 {
+    [SerializeField] private GameObject actionBarParent;
+    [SerializeField] private Ally ally;
+
     [Header("Main Buttons")]
     [SerializeField] private Button moveButton;
     [SerializeField] private Button attackButton;
@@ -12,8 +15,6 @@ public class ActionBar : MonoBehaviour
     [SerializeField] private Button meleeButton;
     [SerializeField] private Button rangedButton;
 
-    [SerializeField] private Ally ally;
-
     public static Action<Ally> OnPickMove;
     public static Action OnPickAttack;
     public static Action<Ally, int> OnPickAttackType;
@@ -21,6 +22,14 @@ public class ActionBar : MonoBehaviour
     private void Awake()
     {
         GetComponent<Canvas>().worldCamera = Camera.main; // TODO
+        TurnManager.onTurnStart += OnPlayerTurnStart;
+        TurnManager.onTurnEnd += OnPlayerTurnEnd;
+    }
+
+    private void OnDestroy()
+    {
+        TurnManager.onTurnStart -= OnPlayerTurnStart;
+        TurnManager.onTurnEnd -= OnPlayerTurnEnd;
     }
 
     private void OnEnable()
@@ -90,5 +99,28 @@ public class ActionBar : MonoBehaviour
     {
         meleeButton.gameObject.SetActive(enable);
         rangedButton.gameObject.SetActive(enable);
+    }
+
+    private void OnPlayerTurnStart(TurnManager.TurnState turn)
+    {
+        if (turn != TurnManager.TurnState.PLAYERTURN)
+            return;
+
+        actionBarParent.SetActive(true);
+    }
+    
+    private void OnPlayerTurnEnd(TurnManager.TurnState turn)
+    {
+        if (turn != TurnManager.TurnState.PLAYERTURN)
+            return;
+        
+        // when back to the player's turn, don't force player to press an attack
+        if (meleeButton.gameObject.activeInHierarchy || rangedButton.gameObject.activeInHierarchy)
+        {
+            ToggleMainButtons(true);
+            ToggleSubButtons(false);
+        }
+
+        actionBarParent.SetActive(false);
     }
 }

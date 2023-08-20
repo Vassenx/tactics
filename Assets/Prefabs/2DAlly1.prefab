@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMat: {fileID: 2100000, guid: 5d971cdae3ac9ad4d88f9274ad79253c, type: 2}
   originalMat: {fileID: 2100000, guid: de6df625f7aaa994e836604b4a155f74, type: 2}
-  renderer: {fileID: 327165367227093360}
+  spriteRenderer: {fileID: 327165367227093360}
   stats: {fileID: 11400000, guid: d7e400fe23c365f47847a4b10d2c95bc, type: 2}
   UIInfo: {fileID: 11400000, guid: 60ae8a20b9c6ae24d9cd024a5dce3325, type: 2}
   actionBar: {fileID: 174957440979846221}

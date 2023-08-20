@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 7631767726351906034}
   icon: {fileID: 7631767726359044614}
-  name: {fileID: 7631767726210961092}
+  allyName: {fileID: 7631767726210961092}
 --- !u!222 &7631767726351906035
 CanvasRenderer:
   m_ObjectHideFlags: 0

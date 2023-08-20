@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InputHandler : MonoBehaviour
 {
     [SerializeField] private Ally allyPrefab; // temp
     private Ally curAllyClicked;
-    public Material originalMat;
-    public Material outlineMat;
 
     public static Action<Character> OnSelectCharacter;
 

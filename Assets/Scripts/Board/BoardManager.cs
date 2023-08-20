@@ -46,11 +46,14 @@ public partial class BoardManager : MonoBehaviour
         UpdateObstructionTileMap();
         UpdateClickTileMap();
         UpdateCharacterPlacementTileMap();
-        
-        OnBoardInitialized?.Invoke();
 
         ActionBar.OnPickMove += ShowMovementCellOptions;
         ActionBar.OnPickAttackType += ShowAttackCellOptions;
+    }
+
+    private void Start()
+    {
+        OnBoardInitialized?.Invoke();
     }
 
     public Vector3 GetCellCenterWorld(Cell cell)
