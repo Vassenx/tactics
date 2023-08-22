@@ -14,17 +14,18 @@ public class Character : MonoBehaviour
     [Header("Character Info")]
     public Stats stats;
     public CharacterUIInfo UIInfo;
-    
+
+    public virtual bool isDoneTurn { get; protected set; } // per character
     public float health { get; protected set; }
     
     private List<Cell> path;
 
-    private void Start()
+    protected virtual void Start()
     {
         path = new List<Cell>();
     }
 
-    public void LateUpdate()
+    protected virtual void LateUpdate()
     {
         if (path.Count > 0)
         {
@@ -37,6 +38,8 @@ public class Character : MonoBehaviour
         path = newPath;
         
         spriteRenderer.material = originalMat;
+
+        isDoneTurn = true;
     }
 
     private void MoveAlongPath()
@@ -62,11 +65,13 @@ public class Character : MonoBehaviour
         }
     }
     
-    public void Attack(Character defender)
+    public virtual void Attack(Character defender)
     {
         if (!ReferenceEquals(GetType(), defender.GetType())) // if enemy vs ally
         {
             defender.health = Mathf.Clamp(defender.health - 5f, 0f, defender.stats.maxHealth);
+
+            isDoneTurn = true; // TODO: what if "if statement" doesnt succeed
         }
     }
 

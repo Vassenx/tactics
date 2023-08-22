@@ -14,6 +14,9 @@ public partial class BoardManager : MonoBehaviour
 
     public static Action OnBoardInitialized;
     
+    public List<Ally> alliesOnBoard { get; private set; }
+    public List<Enemy> enemiesOnBoard { get; private set; }
+    
     private void Awake()
     {
         Initialize();

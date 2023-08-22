@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -28,6 +29,9 @@ public class TurnManager : MonoBehaviour
     public delegate void TurnChangeEventHandler(TurnState turnState);
     public static event TurnChangeEventHandler onTurnStart;
     public static event TurnChangeEventHandler onTurnEnd;
+    
+    public delegate void AllyDoneTurn(int numAlliesDone, int numAllies);
+    public static event AllyDoneTurn onAllyDoneTurn;
     
     public static TurnManager Instance { get; private set; }
     
@@ -75,7 +79,14 @@ public class TurnManager : MonoBehaviour
     {
         turnState = TurnState.PLAYERTURN;
     }
-    
+
+    public void AllyFinishTurn()
+    {
+        int numAlliesDoneTurn = BoardManager.Instance.alliesOnBoard.Count(x => x.isDoneTurn);
+        int numAllies = BoardManager.Instance.alliesOnBoard.Count;
+        onAllyDoneTurn?.Invoke(numAlliesDoneTurn, numAllies);
+    }
+
     private void EnemyTurn()
     {
         turnState = TurnState.ENEMYTURN;

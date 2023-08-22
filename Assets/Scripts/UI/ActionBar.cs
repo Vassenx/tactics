@@ -10,7 +10,8 @@ public class ActionBar : MonoBehaviour
     [Header("Main Buttons")]
     [SerializeField] private Button moveButton;
     [SerializeField] private Button attackButton;
-
+    [SerializeField] private Button skipButton;
+    
     [Header("Attack Sub-Buttons")]
     [SerializeField] private Button meleeButton;
     [SerializeField] private Button rangedButton;
@@ -36,6 +37,7 @@ public class ActionBar : MonoBehaviour
     {
         moveButton.onClick.AddListener(OnPickMoveButton);
         attackButton.onClick.AddListener(OnPickAttackButton);
+        skipButton.onClick.AddListener(OnSkipTurnButton);
         meleeButton.onClick.AddListener(OnPickMeleeAttackButton);
         rangedButton.onClick.AddListener(OnPickRangedAttackButton);
 
@@ -77,6 +79,13 @@ public class ActionBar : MonoBehaviour
         OnPickAttack?.Invoke();
     }
     
+    private void OnSkipTurnButton()
+    {
+        ToggleMainButtons(false);
+        ToggleSubButtons(false);
+        ally.TurnSkipped();
+    }
+    
     private void OnPickMeleeAttackButton()
     {
         ToggleSubButtons(false);
@@ -93,6 +102,7 @@ public class ActionBar : MonoBehaviour
     {
         moveButton.gameObject.SetActive(enable);
         attackButton.gameObject.SetActive(enable);
+        skipButton.gameObject.SetActive(enable);
     }
     
     private void ToggleSubButtons(bool enable)

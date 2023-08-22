@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using Debug = UnityEngine.Debug;
 
 // Initialization and editor functions
 public partial class BoardManager : MonoBehaviour
@@ -35,8 +33,6 @@ public partial class BoardManager : MonoBehaviour
     [SerializeField] private List<Character> characterArchetypes = new List<Character>();
     public Dictionary<TileBase, Character> characterPlacementDictionary; // sprites placed in characterPlacementTileMap to character type
 
-    public List<Ally> alliesOnBoard;
-    
     [ContextMenu("Move Board To Origin")]
     private void MoveBoardToOrigin()
     {
@@ -218,6 +214,7 @@ public partial class BoardManager : MonoBehaviour
     {
         characterPlacementTileMap.gameObject.SetActive(false);
         alliesOnBoard = new List<Ally>();
+        enemiesOnBoard = new List<Enemy>();
         
         for (int x = 0; x < board.Count; x++)
         {
@@ -264,11 +261,23 @@ public partial class BoardManager : MonoBehaviour
             cell.characterOnTile = newCharacter;
             newCharacter.curCellOn = cell;
 
-            // TODO: could be enemy
-            Ally newAlly = (Ally)newCharacter;
-            if (newAlly != null)
+            switch (newCharacter)
             {
-                alliesOnBoard.Add(newAlly); 
+                case Ally newAlly:
+                {
+                    alliesOnBoard.Add(newAlly);
+                    break;
+                }
+                case Enemy newEnemy:
+                {
+                    enemiesOnBoard.Add(newEnemy);
+                    break;
+                }
+                default:
+                {
+                    Debug.LogError($"Unknown character type when making board: {newCharacter.name}");
+                    break;
+                }
             }
         }
     }
