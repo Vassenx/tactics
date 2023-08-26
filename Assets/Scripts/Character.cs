@@ -9,6 +9,8 @@ public class Character : MonoBehaviour
     [SerializeField] private Material originalMat;
     [SerializeField] private SpriteRenderer spriteRenderer;
     
+    [SerializeField] Animator animator;
+    
     public Cell curCellOn;
 
     [Header("Character Info")]
@@ -50,8 +52,16 @@ public class Character : MonoBehaviour
         float height = nextCell.topTilePos.z + 1f;
         Vector2 nextCellPos = BoardManager.Instance.GetCellCenterWorld(nextCell);
 
-        transform.position = Vector2.MoveTowards(transform.position, nextCellPos, stats.movementSpeed * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x, transform.position.y, height);
+        Vector3 nextPos = Vector2.MoveTowards(transform.position, nextCellPos, stats.movementSpeed * Time.deltaTime);
+        
+        // update animation directions
+        if (animator)
+        {
+            animator.SetFloat("X", nextPos.x - transform.position.x);
+            animator.SetFloat("Y", nextPos.y - transform.position.y);   
+        }
+        
+        transform.position = new Vector3(nextPos.x, nextPos.y, height);
 
         if(Vector2.SqrMagnitude((Vector2)(transform.position) - nextCellPos) < 0.001f)
         {
