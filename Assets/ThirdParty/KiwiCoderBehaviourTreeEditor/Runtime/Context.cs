@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace TheKiwiCoder {
 
@@ -13,8 +12,7 @@ namespace TheKiwiCoder {
         public GameObject gameObject;
         public Transform transform;
         public Animator animator;
-        public Rigidbody physics;
-        public NavMeshAgent agent;
+        public Enemy enemyChar;
         // Add other game specific systems here
 
         public static Context CreateFromGameObject(GameObject gameObject) {
@@ -23,8 +21,7 @@ namespace TheKiwiCoder {
             context.gameObject = gameObject;
             context.transform = gameObject.transform;
             context.animator = gameObject.GetComponent<Animator>();
-            context.physics = gameObject.GetComponent<Rigidbody>();
-            context.agent = gameObject.GetComponent<NavMeshAgent>();
+            //context.enemyChar = gameObject.GetComponent<Enemy>();
             
             // Add whatever else you need here...
 

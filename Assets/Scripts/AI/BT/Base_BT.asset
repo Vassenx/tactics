@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: Base_BT
+  m_EditorClassIdentifier: 
+  rootNode:
+    rid: 3831998740975583232
+  nodes:
+  - rid: 3831998740975583232
+  - rid: 3831998740975583233
+  - rid: 3831998740975583234
+  treeState: 0
+  blackboard:
+    keys:
+    - rid: 3831998740975583235
+    - rid: 3831998740975583236
+  viewPosition: {x: 346.66666, y: 102, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3831998740975583232
+      type: {class: RootNode, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        state: 0
+        started: 0
+        guid: d73c2d6b-8ff5-4eca-823a-e7006861c9c8
+        position: {x: 0, y: 0}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 3831998740975583233
+    - rid: 3831998740975583233
+      type: {class: Succeed, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        state: 0
+        started: 0
+        guid: 9fab82743803d0844a407129cdeb2e1d
+        position: {x: -165, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 3831998740975583234
+    - rid: 3831998740975583234
+      type: {class: MoveToNode, ns: , asm: Assembly-CSharp}
+      data:
+        state: 0
+        started: 0
+        guid: 290e1011aed94c64ebcd049a72defc85
+        position: {x: -165, y: 345}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        moveToCellKey:
+          reference:
+            rid: 3831998740975583236
+          defaultValue:
+            characterOnTile: {fileID: 0}
+            isObstructed: 0
+            G: 0
+            H: 0
+    - rid: 3831998740975583235
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        name: IsEnemyTurn
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 3831998740975583236
+      type: {class: CellKey, ns: , asm: Assembly-CSharp}
+      data:
+        name: CurrentCell
+        typeName: Cell, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        value:
+          characterOnTile: {fileID: 0}
+          isObstructed: 0
+          G: 0
+          H: 0

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TheKiwiCoder {
@@ -9,7 +10,7 @@ namespace TheKiwiCoder {
     }
 
     [System.Serializable]
-    public class NodeProperty<T> : NodeProperty {
+    public class NodeProperty<T> : NodeProperty where T : IEquatable<T> {
 
         public T defaultValue = default(T);
         private BlackboardKey<T> _typedKey = null;
