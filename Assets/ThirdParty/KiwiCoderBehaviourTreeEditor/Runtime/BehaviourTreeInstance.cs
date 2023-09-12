@@ -10,6 +10,9 @@ namespace TheKiwiCoder {
         // The main behaviour tree asset
         [Tooltip("BehaviourTree asset to instantiate during Awake")] 
         public BehaviourTree behaviourTree;
+
+        [Tooltip("Storage container object to hold game object subsystems")]
+        public Context context;
         
         [Tooltip("Run behaviour tree validation at startup (Can be disabled for release)")] 
         public bool validate = true;
@@ -17,14 +20,12 @@ namespace TheKiwiCoder {
         // These values override the keys in the blackboard
         public List<BlackboardKeyValuePair> blackboardOverrides = new List<BlackboardKeyValuePair>();
 
-        // Storage container object to hold game object subsystems
-        Context context;
-
         // Start is called before the first frame update
         void Awake() {
             bool isValid = ValidateTree();
-            if (isValid) {
-                context = CreateBehaviourTreeContext();
+            if (isValid)
+            {
+                context.Initialize(gameObject);
                 behaviourTree = behaviourTree.Clone();
                 behaviourTree.Bind(context);
 
@@ -52,13 +53,14 @@ namespace TheKiwiCoder {
             }
         }
 
-        Context CreateBehaviourTreeContext() {
-            return Context.CreateFromGameObject(gameObject);
-        }
-
         bool ValidateTree() {
             if (!behaviourTree) {
                 Debug.LogWarning($"No BehaviourTree assigned to {name}, assign a behaviour tree in the inspector");
+                return false;
+            }
+            
+            if (context == null) {
+                Debug.LogWarning($"No Context assigned to {name}, assign a context in the inspector");
                 return false;
             }
 

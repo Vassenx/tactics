@@ -12,20 +12,14 @@ namespace TheKiwiCoder {
         public GameObject gameObject;
         public Transform transform;
         public Animator animator;
-        public Enemy enemyChar;
         // Add other game specific systems here
 
-        public static Context CreateFromGameObject(GameObject gameObject) {
+        public virtual void Initialize(GameObject newGameObject) {
             // Fetch all commonly used components
-            Context context = new Context();
-            context.gameObject = gameObject;
-            context.transform = gameObject.transform;
-            context.animator = gameObject.GetComponent<Animator>();
-            //context.enemyChar = gameObject.GetComponent<Enemy>();
             
-            // Add whatever else you need here...
-
-            return context;
+            gameObject = newGameObject;
+            transform = newGameObject.transform;
+            animator = newGameObject.GetComponent<Animator>();
         }
     }
 }

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e7e4bab916bfb4cbe15b245501f787, type: 3}
+  m_Name: Enemy_BT
+  m_EditorClassIdentifier: 
+  rootNode:
+    rid: 3391888037225168901
+  nodes:
+  - rid: 3391888037225168901
+  - rid: 3391888107962892288
+  treeState: 0
+  blackboard:
+    keys:
+    - rid: -2
+  viewPosition: {x: 307.33334, y: 281.33334, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 3391888037225168901
+      type: {class: RootNode, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        state: 0
+        started: 0
+        guid: 589aa4a7-b4b1-47e1-9a98-2eee8c8ac4ab
+        position: {x: 0, y: 0}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 3391888107962892288
+    - rid: 3391888107962892288
+      type: {class: MoveToNode, ns: , asm: Ractics}
+      data:
+        state: 0
+        started: 0
+        guid: 6ef742313c8acfc4a81f527b8381d7ca
+        position: {x: -121, y: 194}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        moveToCellKey:
+          reference:
+            rid: -2
+          defaultValue:
+            characterOnTile: {fileID: 0}
+            isObstructed: 0
+            G: 0
+            H: 0
